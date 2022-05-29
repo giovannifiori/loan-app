@@ -81,7 +81,6 @@ function NewLoanForm({ onSubmit }: FormProps) {
           {...register('installmentsNumber', {
             required: 'Indique a quantidade de parcelas',
             min: 1,
-            max: 60,
             valueAsNumber: true,
           })}
         />
