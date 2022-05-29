@@ -9,10 +9,12 @@ function LoanListing() {
   const navigate = useNavigate()
   const loans = useLoanStore((state) => state.loans)
 
+  const handleLoanClick = (id: number) => navigate(`/loan/${id}`)
+
   return (
     <Layout title="Loan app">
       <Button onClick={() => navigate('/new-loan')}>Novo empréstimo</Button>
-      <LoanList loans={loans} />
+      <LoanList loans={loans} onLoanClicked={handleLoanClick} />
     </Layout>
   )
 }
