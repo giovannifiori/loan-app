@@ -33,7 +33,7 @@ function NewLoanPage() {
         Date.now(),
         description,
         value,
-        firstPaymentDate,
+        firstDueDate,
         installments
       )
     },
