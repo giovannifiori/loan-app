@@ -1,11 +1,17 @@
 import React from 'react'
 import { IInstallment } from '../../../domain/interface/IInstallment'
+import PaymentStatus from '../../../domain/types/PaymentStatus'
+import Button from '../Button'
 
 type InstallmentListProps = {
   installments: Array<IInstallment> | undefined
+  onPayInstallment(installment: IInstallment): void
 }
 
-function InstallmentList({ installments }: InstallmentListProps) {
+function InstallmentList({
+  installments,
+  onPayInstallment,
+}: InstallmentListProps) {
   if (!installments) return null
   return (
     <>
@@ -14,6 +20,7 @@ function InstallmentList({ installments }: InstallmentListProps) {
           key={installment.index}
           installment={installment}
           total={installments.length}
+          onPay={onPayInstallment}
         />
       ))}
     </>
@@ -23,9 +30,14 @@ function InstallmentList({ installments }: InstallmentListProps) {
 type InstallmentItemProps = {
   installment: IInstallment
   total: number
+  onPay(installment: IInstallment): void
 }
 
-function InstallmentListItem({ installment, total }: InstallmentItemProps) {
+function InstallmentListItem({
+  installment,
+  total,
+  onPay,
+}: InstallmentItemProps) {
   return (
     <li>
       <div>
@@ -35,6 +47,9 @@ function InstallmentListItem({ installment, total }: InstallmentItemProps) {
         </p>
         <p>Vencimento em {installment.dueDate.toLocaleDateString()}</p>
       </div>
+      {installment.paymentStatus() != PaymentStatus.PAID && (
+        <Button onClick={() => onPay(installment)}>Pagar</Button>
+      )}
     </li>
   )
 }
