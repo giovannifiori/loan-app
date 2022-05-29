@@ -2,6 +2,7 @@ import React from 'react'
 import ILoan from '../../../domain/interface/ILoan'
 import PaymentStatus from '../../../domain/types/PaymentStatus'
 import { getPaymentStatusMessage } from '../../utils/payment'
+import './LoanList.css'
 
 type LoanListProps = {
   loans: Array<ILoan>

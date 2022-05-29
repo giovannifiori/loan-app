@@ -6,3 +6,12 @@
   text-transform: uppercase;
   border-radius: 0.25rem;
 }
+
+.container:hover,
+.container:focus {
+  background-color: #1c41ff;
+}
+
+.container:hover {
+  cursor: pointer;
+}

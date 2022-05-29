@@ -1,7 +1,7 @@
 import React from 'react'
 import { IInstallment } from '../../../domain/interface/IInstallment'
 import PaymentStatus from '../../../domain/types/PaymentStatus'
-import { getPaymentStatusMessage } from '../../utils/payment'
+import { getPaymentStatusIconClass } from '../../utils/payment'
 import Button from '../Button'
 
 type InstallmentListProps = {
@@ -47,13 +47,26 @@ function InstallmentListItem({
       <div>
         <p>
           Parcela {installment.index} de {total} - R$
-          {installment.value.toFixed(2)} -{' '}
-          {getPaymentStatusMessage(installment.paymentStatus())}
+          {installment.value.toFixed(2)}
+          <span
+            className={`status-icon ${getPaymentStatusIconClass(
+              installment.paymentStatus()
+            )}`}
+          />
         </p>
-        <p>Vencimento em {installment.dueDate.toLocaleDateString()}</p>
       </div>
-      {installment.paymentStatus() != PaymentStatus.PAID && (
-        <Button onClick={() => onPay(installment)}>Pagar</Button>
+      {installment.paymentStatus() === PaymentStatus.PAID && (
+        <p className="helper-text">
+          Pago em {installment.paymentDate?.toLocaleDateString()}
+        </p>
+      )}
+      {installment.paymentStatus() !== PaymentStatus.PAID && (
+        <>
+          <p className="helper-text">
+            Vencimento em {installment.dueDate.toLocaleDateString()}
+          </p>
+          <Button onClick={() => onPay(installment)}>Pagar</Button>
+        </>
       )}
     </li>
   )
