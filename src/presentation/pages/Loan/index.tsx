@@ -27,11 +27,15 @@ function Loan() {
 
   return (
     <Layout title={loan?.description || 'Meu empréstimo'}>
-      <p>Valor: R${loan?.value}</p>
+      <p>Valor contratado: R${loan?.value}</p>
       <p>
-        Data primeiro pagamento: {loan?.firstPaymentDate.toLocaleDateString()}
+        Data estipulada para primeiro pagamento:{' '}
+        {loan?.firstPaymentDate.toLocaleDateString()}
       </p>
-      <p>Total de parcelas: {loan?.totalInstallments()}</p>
+      <p>
+        Parcelas pagas: {loan?.paidInstallments()} de{' '}
+        {loan?.totalInstallments()}
+      </p>
       {loanPaymentStatus !== PaymentStatus.PAID && (
         <p>Próximo vencimento: {loan?.nextDueDate()?.toLocaleDateString()}</p>
       )}
