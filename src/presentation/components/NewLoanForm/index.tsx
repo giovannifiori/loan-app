@@ -1,5 +1,6 @@
 import React from 'react'
 import { useForm, SubmitHandler } from 'react-hook-form'
+import './NewLoanForm.css'
 
 export interface NewLoanFormData {
   description: string
@@ -17,11 +18,15 @@ function NewLoanForm({ onSubmit }: FormProps) {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<NewLoanFormData>()
+  } = useForm<NewLoanFormData>({
+    defaultValues: {
+      installmentsNumber: 1,
+    },
+  })
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <div>
+    <form className="form-new-loan" onSubmit={handleSubmit(onSubmit)}>
+      <div className="form-field">
         <label htmlFor="description">Descrição</label>
         <input
           id="description"
@@ -30,15 +35,15 @@ function NewLoanForm({ onSubmit }: FormProps) {
             required: 'Insira uma descrição',
           })}
         />
-        {errors.description?.message}
+        <span className="field-error">{errors.description?.message}</span>
       </div>
-      <div>
+      <div className="form-field">
         <label htmlFor="value">Valor</label>
         <input
           id="value"
           type="number"
           {...register('value', {
-            required: true,
+            required: 'Insira um valor monetário',
             min: {
               value: 50,
               message: 'Disponível a partir de R$50',
@@ -46,9 +51,9 @@ function NewLoanForm({ onSubmit }: FormProps) {
             valueAsNumber: true,
           })}
         />
-        {errors.value?.message}
+        <span className="field-error">{errors.value?.message}</span>
       </div>
-      <div>
+      <div className="form-field">
         <label htmlFor="firstPaymentDate">Data primeiro pagamento</label>
         <input
           id="firstPaymentDate"
@@ -65,9 +70,9 @@ function NewLoanForm({ onSubmit }: FormProps) {
             },
           })}
         />
-        {errors.firstPaymentDate?.message}
+        <span className="field-error">{errors.firstPaymentDate?.message}</span>
       </div>
-      <div>
+      <div className="form-field">
         <label htmlFor="installmentsNumber">Número de parcelas</label>
         <input
           id="installmentsNumber"
@@ -79,7 +84,9 @@ function NewLoanForm({ onSubmit }: FormProps) {
             valueAsNumber: true,
           })}
         />
-        {errors.installmentsNumber?.message}
+        <span className="field-error">
+          {errors.installmentsNumber?.message}
+        </span>
       </div>
       <input type="submit" value="Salvar" />
     </form>

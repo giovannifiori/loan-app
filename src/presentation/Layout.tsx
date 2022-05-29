@@ -8,10 +8,10 @@ type LayoutProps = {
 function Layout({ title, children }: LayoutProps) {
   return (
     <>
-      <header>
+      <header className="page-header">
         <h1>{title}</h1>
       </header>
-      <main>{children}</main>
+      <main className="page-main">{children}</main>
     </>
   )
 }

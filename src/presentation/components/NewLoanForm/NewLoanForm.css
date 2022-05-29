@@ -1,0 +1,28 @@
+.form-new-loan {
+  width: fit-content;
+  display: flex;
+  flex-direction: column;
+}
+.form-new-loan > input {
+  align-self: center;
+  padding: 1em;
+  width: 100%;
+}
+
+.form-field {
+  min-width: 72ch;
+  margin-block: 1em;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-field > input {
+  padding: 1em;
+  border-radius: 0.25em;
+}
+
+.field-error {
+  font-size: 0.75rem;
+  color: red;
+  margin-top: 0.25rem;
+}

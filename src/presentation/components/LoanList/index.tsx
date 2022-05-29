@@ -1,5 +1,6 @@
 import React from 'react'
 import ILoan from '../../../domain/interface/ILoan'
+import PaymentStatus from '../../../domain/types/PaymentStatus'
 
 type LoanListProps = {
   loans: Array<ILoan>
@@ -9,9 +10,12 @@ type LoanListProps = {
 function LoanList({ loans, onLoanClicked }: LoanListProps) {
   return (
     <>
-      {loans.map((loan) => (
-        <LoanListItem key={loan.id} loan={loan} onClick={onLoanClicked} />
-      ))}
+      <h2 className="list-title">Meus empréstimos</h2>
+      <ul className="list">
+        {loans.map((loan) => (
+          <LoanListItem key={loan.id} loan={loan} onClick={onLoanClicked} />
+        ))}
+      </ul>
     </>
   )
 }
@@ -21,14 +25,32 @@ type LoanItemProps = {
   onClick(id: number): void
 }
 
+function getStatusMessage(paymentStatus: PaymentStatus) {
+  switch (paymentStatus) {
+    case PaymentStatus.PAID:
+      return 'Pago'
+    case PaymentStatus.OVERDUE:
+      return 'Em atraso'
+    case PaymentStatus.ON_TIME:
+      return 'Em dia'
+    default:
+      return ''
+  }
+}
+
 function LoanListItem({ loan, onClick }: LoanItemProps) {
   return (
-    <div onClick={() => onClick(loan.id)}>
-      <p>{`${loan.description} - R$${loan.value}`}</p>
-      <span>
-        próximo vencimento: {loan.nextDueDate()?.toLocaleDateString()}
-      </span>
-    </div>
+    <li className="list-item loan-list-item" onClick={() => onClick(loan.id)}>
+      <p>
+        {`${loan.description} - R$${loan.value}`} -{' '}
+        {getStatusMessage(loan.paymentStatus())}
+      </p>
+      {loan.paymentStatus() !== PaymentStatus.PAID && (
+        <span>
+          próximo vencimento: {loan.nextDueDate()?.toLocaleDateString()}
+        </span>
+      )}
+    </li>
   )
 }
 
