@@ -3,6 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 import useLoanStore from '../../../data/store/loanStore'
 import { IInstallment } from '../../../domain/interface/IInstallment'
 import ILoan from '../../../domain/interface/ILoan'
+import PaymentStatus from '../../../domain/types/PaymentStatus'
 import InstallmentList from '../../components/InstallmentsList'
 import Layout from '../../Layout'
 import { getPaymentStatusMessage } from '../../utils/payment'
@@ -22,6 +23,8 @@ function Loan() {
     payInstallment(loan as ILoan, installment)
   }
 
+  const loanPaymentStatus = loan?.paymentStatus()
+
   return (
     <Layout title={loan?.description || 'Meu empréstimo'}>
       <p>Valor: R${loan?.value}</p>
@@ -29,8 +32,12 @@ function Loan() {
         Data primeiro pagamento: {loan?.firstPaymentDate.toLocaleDateString()}
       </p>
       <p>Total de parcelas: {loan?.totalInstallments()}</p>
-      <p>Próximo vencimento: {loan?.nextDueDate()?.toLocaleDateString()}</p>
-      {loan && <p>Status: {getPaymentStatusMessage(loan?.paymentStatus())}</p>}
+      {loanPaymentStatus !== PaymentStatus.PAID && (
+        <p>Próximo vencimento: {loan?.nextDueDate()?.toLocaleDateString()}</p>
+      )}
+      {loanPaymentStatus && (
+        <p>Status: {getPaymentStatusMessage(loanPaymentStatus)}</p>
+      )}
       <br />
       <InstallmentList
         installments={loan?.installments}
