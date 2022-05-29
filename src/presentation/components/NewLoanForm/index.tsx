@@ -42,6 +42,7 @@ function NewLoanForm({ onSubmit }: FormProps) {
         <input
           id="value"
           type="number"
+          step="0.01"
           {...register('value', {
             required: 'Insira um valor monetário',
             min: {
