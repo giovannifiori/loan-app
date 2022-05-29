@@ -63,3 +63,23 @@ test('should have payment status = OVERDUE when past installment due date', () =
 
   expect(loan.paymentStatus()).toEqual(PaymentStatus.OVERDUE)
 })
+
+test('should return correct number of paid installments', () => {
+  const loan = new Loan(1, 'Empréstimo X', 500, new Date(2022, 5, 28), [
+    new Installment(50, 1, new Date(2022, 5, 28), new Date(2022, 5, 28)),
+    new Installment(50, 2, new Date(2022, 6, 28), null),
+    new Installment(50, 3, new Date(2022, 7, 28), new Date(2022, 5, 28)),
+  ])
+
+  expect(loan.paidInstallments()).toEqual(2)
+})
+
+test('should return correct number of paid installments when no one was paid', () => {
+  const loan = new Loan(1, 'Empréstimo X', 500, new Date(2022, 5, 28), [
+    new Installment(50, 1, new Date(2022, 5, 28), null),
+    new Installment(50, 2, new Date(2022, 6, 28), null),
+    new Installment(50, 3, new Date(2022, 7, 28), null),
+  ])
+
+  expect(loan.paidInstallments()).toEqual(0)
+})
