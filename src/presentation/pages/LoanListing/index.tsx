@@ -2,7 +2,7 @@ import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import useLoanStore from '../../../data/store/loanStore'
 import Button from '../../components/Button'
-import LoanList from '../../components/LoanList/LoanListContainer'
+import LoanList from '../../components/LoanList'
 import Layout from '../../Layout'
 
 function LoanListing() {
