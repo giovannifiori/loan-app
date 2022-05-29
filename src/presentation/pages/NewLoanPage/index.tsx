@@ -25,7 +25,12 @@ function NewLoanPage() {
       const installments: Array<Installment> = []
       for (let index = 0; index < installmentsNumber; index++) {
         const dueDate = addMonths(firstDueDate, index)
-        const installment = new Installment(installmentValue, dueDate, null)
+        const installment = new Installment(
+          installmentValue,
+          index + 1,
+          dueDate,
+          null
+        )
         installments.push(installment)
       }
 

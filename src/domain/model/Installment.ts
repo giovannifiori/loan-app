@@ -4,11 +4,18 @@ import PaymentStatus from '../types/PaymentStatus'
 
 export default class Installment implements IInstallment {
   value: number
+  index: number
   dueDate: Date
   paymentDate: Date | null
 
-  constructor(value: number, dueDate: Date, paymentDate: Date | null) {
+  constructor(
+    value: number,
+    index: number,
+    dueDate: Date,
+    paymentDate: Date | null
+  ) {
     this.value = value
+    this.index = index
     this.dueDate = dueDate
     this.paymentDate = paymentDate
   }

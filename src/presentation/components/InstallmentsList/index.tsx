@@ -9,11 +9,10 @@ function InstallmentList({ installments }: InstallmentListProps) {
   if (!installments) return null
   return (
     <>
-      {installments.map((installment, index) => (
+      {installments.map((installment) => (
         <InstallmentListItem
-          key={index}
+          key={installment.index}
           installment={installment}
-          index={index + 1}
           total={installments.length}
         />
       ))}
@@ -23,20 +22,15 @@ function InstallmentList({ installments }: InstallmentListProps) {
 
 type InstallmentItemProps = {
   installment: IInstallment
-  index: number
   total: number
 }
 
-function InstallmentListItem({
-  installment,
-  index,
-  total,
-}: InstallmentItemProps) {
+function InstallmentListItem({ installment, total }: InstallmentItemProps) {
   return (
     <li>
       <div>
         <p>
-          Parcela {index} de {total} - R${installment.value} -{' '}
+          Parcela {installment.index} de {total} - R${installment.value} -{' '}
           {installment.paymentStatus()}
         </p>
         <p>Vencimento em {installment.dueDate.toLocaleDateString()}</p>
