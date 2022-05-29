@@ -1,4 +1,5 @@
 import { addMonths } from 'date-fns'
+import { v4 as uuidv4 } from 'uuid'
 import { NewLoanFormData } from '../../presentation/components/NewLoanForm'
 import Installment from '../model/Installment'
 import Loan from '../model/Loan'
@@ -24,5 +25,5 @@ export function createLoan(formData: NewLoanFormData) {
     installments.push(installment)
   }
 
-  return new Loan(Date.now(), description, value, firstDueDate, installments)
+  return new Loan(uuidv4(), description, value, firstDueDate, installments)
 }

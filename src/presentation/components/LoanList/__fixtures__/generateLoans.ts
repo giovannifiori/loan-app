@@ -1,19 +1,19 @@
-import Installment from '../../../../domain/model/Installment'
-import Loan from '../../../../domain/model/Loan'
+import { createLoan } from '../../../../domain/useCase/createLoan'
 
 export function generateLoans(quantity: number) {
   const loans = []
   for (let i = 0; i < quantity; i++) {
-    const loanValue = Math.random() * 1000
+    const value = Math.random() * 1000
     const installmentsNumber = Math.round(Math.random() * 20)
-    const installments = []
-    for (let j = 0; j < installmentsNumber; j++) {
-      installments.push(
-        new Installment(loanValue / installmentsNumber, j + 1, new Date(), null)
-      )
-    }
-    const loan = new Loan(i, 'emprestimo', loanValue, new Date(), installments)
-    loans.push(loan)
+
+    loans.push(
+      createLoan({
+        description: 'emprestimo',
+        firstPaymentDate: new Date(),
+        installmentsNumber,
+        value,
+      })
+    )
   }
   return loans
 }

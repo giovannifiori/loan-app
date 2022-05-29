@@ -1,9 +1,10 @@
+import { v4 as uuidv4 } from 'uuid'
 import PaymentStatus from '../../types/PaymentStatus'
 import Installment from '../Installment'
 import Loan from '../Loan'
 
 test('totalInstallments should be the length of installments instances', () => {
-  const loan = new Loan(1, 'Empréstimo X', 500, new Date(2022, 5, 28), [
+  const loan = new Loan(uuidv4(), 'Empréstimo X', 500, new Date(2022, 5, 28), [
     new Installment(50, 1, new Date(2022, 5, 28), null),
     new Installment(50, 2, new Date(2022, 6, 28), null),
     new Installment(50, 3, new Date(2022, 7, 28), null),
@@ -13,7 +14,7 @@ test('totalInstallments should be the length of installments instances', () => {
 })
 
 test('nextDueDate should return the due date of the first unpaid installment', () => {
-  const loan = new Loan(1, 'Empréstimo X', 500, new Date(2022, 5, 28), [
+  const loan = new Loan(uuidv4(), 'Empréstimo X', 500, new Date(2022, 5, 28), [
     new Installment(50, 1, new Date(2022, 5, 28), new Date(2022, 5, 28)),
     new Installment(50, 2, new Date(2022, 6, 28), null),
     new Installment(50, 3, new Date(2022, 7, 28), null),
@@ -23,7 +24,7 @@ test('nextDueDate should return the due date of the first unpaid installment', (
 })
 
 test('nextDueDate should return null when all installments are paid', () => {
-  const loan = new Loan(1, 'Empréstimo X', 500, new Date(2022, 5, 28), [
+  const loan = new Loan(uuidv4(), 'Empréstimo X', 500, new Date(2022, 5, 28), [
     new Installment(50, 1, new Date(2022, 5, 28), new Date(2022, 5, 28)),
     new Installment(50, 2, new Date(2022, 6, 28), new Date(2022, 5, 28)),
     new Installment(50, 3, new Date(2022, 7, 28), new Date(2022, 5, 28)),
@@ -33,7 +34,7 @@ test('nextDueDate should return null when all installments are paid', () => {
 })
 
 test('should have payment status = PAID when all installments are paid', () => {
-  const loan = new Loan(1, 'Empréstimo X', 500, new Date(2022, 5, 28), [
+  const loan = new Loan(uuidv4(), 'Empréstimo X', 500, new Date(2022, 5, 28), [
     new Installment(50, 1, new Date(2022, 5, 28), new Date(2022, 5, 28)),
     new Installment(50, 2, new Date(2022, 6, 28), new Date(2022, 5, 28)),
     new Installment(50, 3, new Date(2022, 7, 28), new Date(2022, 5, 28)),
@@ -44,7 +45,7 @@ test('should have payment status = PAID when all installments are paid', () => {
 
 test('should have payment status = ON_TIME when there are no OVERDUE installments', () => {
   jest.useFakeTimers('modern').setSystemTime(new Date(2022, 6, 25))
-  const loan = new Loan(1, 'Empréstimo X', 500, new Date(2022, 5, 28), [
+  const loan = new Loan(uuidv4(), 'Empréstimo X', 500, new Date(2022, 5, 28), [
     new Installment(50, 1, new Date(2022, 5, 28), new Date(2022, 5, 28)),
     new Installment(50, 2, new Date(2022, 6, 28), null),
     new Installment(50, 3, new Date(2022, 7, 28), null),
@@ -55,7 +56,7 @@ test('should have payment status = ON_TIME when there are no OVERDUE installment
 
 test('should have payment status = OVERDUE when past installment due date', () => {
   jest.useFakeTimers('modern').setSystemTime(new Date(2022, 6, 29))
-  const loan = new Loan(1, 'Empréstimo X', 500, new Date(2022, 5, 28), [
+  const loan = new Loan(uuidv4(), 'Empréstimo X', 500, new Date(2022, 5, 28), [
     new Installment(50, 1, new Date(2022, 5, 28), new Date(2022, 5, 28)),
     new Installment(50, 2, new Date(2022, 6, 28), null),
     new Installment(50, 3, new Date(2022, 7, 28), null),
@@ -65,7 +66,7 @@ test('should have payment status = OVERDUE when past installment due date', () =
 })
 
 test('should return correct number of paid installments', () => {
-  const loan = new Loan(1, 'Empréstimo X', 500, new Date(2022, 5, 28), [
+  const loan = new Loan(uuidv4(), 'Empréstimo X', 500, new Date(2022, 5, 28), [
     new Installment(50, 1, new Date(2022, 5, 28), new Date(2022, 5, 28)),
     new Installment(50, 2, new Date(2022, 6, 28), null),
     new Installment(50, 3, new Date(2022, 7, 28), new Date(2022, 5, 28)),
@@ -75,7 +76,7 @@ test('should return correct number of paid installments', () => {
 })
 
 test('should return correct number of paid installments when no one was paid', () => {
-  const loan = new Loan(1, 'Empréstimo X', 500, new Date(2022, 5, 28), [
+  const loan = new Loan(uuidv4(), 'Empréstimo X', 500, new Date(2022, 5, 28), [
     new Installment(50, 1, new Date(2022, 5, 28), null),
     new Installment(50, 2, new Date(2022, 6, 28), null),
     new Installment(50, 3, new Date(2022, 7, 28), null),

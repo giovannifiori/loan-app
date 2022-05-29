@@ -14,7 +14,7 @@ function Loan() {
   const loans = useLoanStore((state) => state.loans)
   const payInstallment = useLoanStore((state) => state.payLoanInstallment)
 
-  const loan = loans.find((l) => l.id === Number(id))
+  const loan = loans.find((l) => l.id === id)
   if (!loan) {
     navigate(-1)
   }

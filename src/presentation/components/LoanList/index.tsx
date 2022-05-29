@@ -6,7 +6,7 @@ import './LoanList.css'
 
 type LoanListProps = {
   loans: Array<ILoan>
-  onLoanClicked(id: number): void
+  onLoanClicked(id: string): void
 }
 
 function LoanList({ loans, onLoanClicked }: LoanListProps) {
@@ -24,7 +24,7 @@ function LoanList({ loans, onLoanClicked }: LoanListProps) {
 
 type LoanItemProps = {
   loan: ILoan
-  onClick(id: number): void
+  onClick(id: string): void
 }
 
 function LoanListItem({ loan, onClick }: LoanItemProps) {

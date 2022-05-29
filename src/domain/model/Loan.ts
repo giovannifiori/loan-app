@@ -3,14 +3,14 @@ import PaymentStatus from '../types/PaymentStatus'
 import Installment from './Installment'
 
 export default class Loan implements ILoan {
-  id: number
+  id: string
   description: string
   value: number
   firstPaymentDate: Date
   installments: Installment[]
 
   constructor(
-    id: number,
+    id: string,
     description: string,
     value: number,
     firstPaymentDate: Date,

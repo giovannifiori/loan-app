@@ -2,7 +2,7 @@ import type PaymentStatus from '../types/PaymentStatus'
 import { IInstallment } from './IInstallment'
 
 export interface ILoan {
-  id: number
+  id: string
   description: string
   value: number
   firstPaymentDate: Date
