@@ -1,8 +1,8 @@
 import React from 'react'
 import { IInstallment } from '../../../domain/interface/IInstallment'
 import PaymentStatus from '../../../domain/types/PaymentStatus'
-import { getPaymentStatusIconClass } from '../../utils/payment'
 import Button from '../Button'
+import PaymentStatusIcon from '../PaymentStatusIcon'
 
 type InstallmentListProps = {
   installments: Array<IInstallment> | undefined
@@ -48,11 +48,7 @@ function InstallmentListItem({
         <p>
           Parcela {installment.index} de {total} - R$
           {installment.value.toFixed(2)}
-          <span
-            className={`status-icon ${getPaymentStatusIconClass(
-              installment.paymentStatus()
-            )}`}
-          />
+          <PaymentStatusIcon paymentStatus={installment.paymentStatus()} />
         </p>
       </div>
       {installment.paymentStatus() === PaymentStatus.PAID && (

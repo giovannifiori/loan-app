@@ -1,7 +1,7 @@
 import React from 'react'
 import ILoan from '../../../domain/interface/ILoan'
 import PaymentStatus from '../../../domain/types/PaymentStatus'
-import { getPaymentStatusMessage } from '../../utils/payment'
+import PaymentStatusIcon from '../PaymentStatusIcon'
 import './LoanList.css'
 
 type LoanListProps = {
@@ -32,9 +32,10 @@ function LoanListItem({ loan, onClick }: LoanItemProps) {
     <li className="list-item loan-list-item" onClick={() => onClick(loan.id)}>
       <div>
         <p>
-          {`${loan.description} - R$${loan.value}`} -{' '}
-          {getPaymentStatusMessage(loan.paymentStatus())}
+          {loan.description}{' '}
+          <PaymentStatusIcon paymentStatus={loan.paymentStatus()} />
         </p>
+        <p>R${loan.value}</p>
         {loan.paymentStatus() !== PaymentStatus.PAID && (
           <span className="helper-text">
             Próximo vencimento: {loan.nextDueDate()?.toLocaleDateString()}
