@@ -5,6 +5,7 @@ import { IInstallment } from '../../../domain/interface/IInstallment'
 import ILoan from '../../../domain/interface/ILoan'
 import InstallmentList from '../../components/InstallmentsList'
 import Layout from '../../Layout'
+import { getPaymentStatusMessage } from '../../utils/payment'
 
 function Loan() {
   const { id } = useParams()
@@ -29,7 +30,7 @@ function Loan() {
       </p>
       <p>Total de parcelas: {loan?.totalInstallments()}</p>
       <p>Próximo vencimento: {loan?.nextDueDate()?.toLocaleDateString()}</p>
-      <p>Status: {loan?.paymentStatus()}</p>
+      {loan && <p>Status: {getPaymentStatusMessage(loan?.paymentStatus())}</p>}
       <br />
       <InstallmentList
         installments={loan?.installments}

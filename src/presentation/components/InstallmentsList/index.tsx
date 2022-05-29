@@ -1,6 +1,7 @@
 import React from 'react'
 import { IInstallment } from '../../../domain/interface/IInstallment'
 import PaymentStatus from '../../../domain/types/PaymentStatus'
+import { getPaymentStatusMessage } from '../../utils/payment'
 import Button from '../Button'
 
 type InstallmentListProps = {
@@ -15,14 +16,17 @@ function InstallmentList({
   if (!installments) return null
   return (
     <>
-      {installments.map((installment) => (
-        <InstallmentListItem
-          key={installment.index}
-          installment={installment}
-          total={installments.length}
-          onPay={onPayInstallment}
-        />
-      ))}
+      <h2 className="list-title">Parcelas</h2>
+      <ul>
+        {installments.map((installment) => (
+          <InstallmentListItem
+            key={installment.index}
+            installment={installment}
+            total={installments.length}
+            onPay={onPayInstallment}
+          />
+        ))}
+      </ul>
     </>
   )
 }
@@ -39,11 +43,12 @@ function InstallmentListItem({
   onPay,
 }: InstallmentItemProps) {
   return (
-    <li>
+    <li className="list-item">
       <div>
         <p>
-          Parcela {installment.index} de {total} - R${installment.value} -{' '}
-          {installment.paymentStatus()}
+          Parcela {installment.index} de {total} - R$
+          {installment.value.toFixed(2)} -{' '}
+          {getPaymentStatusMessage(installment.paymentStatus())}
         </p>
         <p>Vencimento em {installment.dueDate.toLocaleDateString()}</p>
       </div>

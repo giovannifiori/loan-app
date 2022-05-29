@@ -1,6 +1,7 @@
 import React from 'react'
 import ILoan from '../../../domain/interface/ILoan'
 import PaymentStatus from '../../../domain/types/PaymentStatus'
+import { getPaymentStatusMessage } from '../../utils/payment'
 
 type LoanListProps = {
   loans: Array<ILoan>
@@ -25,25 +26,12 @@ type LoanItemProps = {
   onClick(id: number): void
 }
 
-function getStatusMessage(paymentStatus: PaymentStatus) {
-  switch (paymentStatus) {
-    case PaymentStatus.PAID:
-      return 'Pago'
-    case PaymentStatus.OVERDUE:
-      return 'Em atraso'
-    case PaymentStatus.ON_TIME:
-      return 'Em dia'
-    default:
-      return ''
-  }
-}
-
 function LoanListItem({ loan, onClick }: LoanItemProps) {
   return (
     <li className="list-item loan-list-item" onClick={() => onClick(loan.id)}>
       <p>
         {`${loan.description} - R$${loan.value}`} -{' '}
-        {getStatusMessage(loan.paymentStatus())}
+        {getPaymentStatusMessage(loan.paymentStatus())}
       </p>
       {loan.paymentStatus() !== PaymentStatus.PAID && (
         <span>
