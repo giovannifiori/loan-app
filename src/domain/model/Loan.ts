@@ -27,6 +27,16 @@ export default class Loan implements ILoan {
     return this.installments.length
   }
 
+  paidInstallments() {
+    let count = 0
+    this.installments.forEach((i) => {
+      if (i.paymentDate) {
+        count++
+      }
+    })
+    return count
+  }
+
   nextDueDate() {
     for (const installment of this.installments) {
       if (installment.paymentStatus() !== PaymentStatus.PAID) {

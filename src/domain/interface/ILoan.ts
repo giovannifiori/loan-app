@@ -8,6 +8,7 @@ export interface ILoan {
   firstPaymentDate: Date
   installments: IInstallment[]
   totalInstallments(): number
+  paidInstallments(): number
   nextDueDate(): Date | null
   paymentStatus(): PaymentStatus
 }

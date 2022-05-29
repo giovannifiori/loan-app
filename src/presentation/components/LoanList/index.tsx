@@ -30,15 +30,22 @@ type LoanItemProps = {
 function LoanListItem({ loan, onClick }: LoanItemProps) {
   return (
     <li className="list-item loan-list-item" onClick={() => onClick(loan.id)}>
-      <p>
-        {`${loan.description} - R$${loan.value}`} -{' '}
-        {getPaymentStatusMessage(loan.paymentStatus())}
-      </p>
-      {loan.paymentStatus() !== PaymentStatus.PAID && (
+      <div>
+        <p>
+          {`${loan.description} - R$${loan.value}`} -{' '}
+          {getPaymentStatusMessage(loan.paymentStatus())}
+        </p>
+        {loan.paymentStatus() !== PaymentStatus.PAID && (
+          <span className="helper-text">
+            Próximo vencimento: {loan.nextDueDate()?.toLocaleDateString()}
+          </span>
+        )}
+      </div>
+      <div>
         <span>
-          próximo vencimento: {loan.nextDueDate()?.toLocaleDateString()}
+          {loan.paidInstallments()}/{loan.totalInstallments()}
         </span>
-      )}
+      </div>
     </li>
   )
 }

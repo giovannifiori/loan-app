@@ -1,16 +1,15 @@
 .form-new-loan {
-  width: fit-content;
   display: flex;
   flex-direction: column;
 }
 .form-new-loan > input {
   align-self: center;
   padding: 1em;
-  width: 100%;
+  cursor: pointer;
 }
 
 .form-field {
-  min-width: 72ch;
+  width: minmax(100%, 72ch);
   margin-block: 1em;
   display: flex;
   flex-direction: column;
