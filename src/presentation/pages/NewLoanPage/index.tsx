@@ -5,6 +5,7 @@ import Loan from '../../../domain/model/Loan'
 import Installment from '../../../domain/model/Installment'
 import NewLoanForm, { NewLoanFormData } from '../../components/NewLoanForm'
 import useLoanStore from '../../../data/store/loanStore'
+import Layout from '../../Layout'
 
 function NewLoanPage() {
   const navigate = useNavigate()
@@ -48,10 +49,9 @@ function NewLoanPage() {
   }
 
   return (
-    <>
-      <h1>Novo empréstimo</h1>
+    <Layout title="Novo empréstimo">
       <NewLoanForm onSubmit={handleFormSubmit} />
-    </>
+    </Layout>
   )
 }
 
